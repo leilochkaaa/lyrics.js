@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyrics Animation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+    .lyrics {
+      white-space: pre-wrap; /* Keeps the line breaks intact */
+      font-size: 50px;
+      color:whitesmoke;
+    }
+    body {
+        background-color: black;
+        text-emphasis-color: whitesmoke;
+    }
+  </style>
+</head>
+<body>
+    <main id="main">
+  <div id="lyrics" class="lyrics"></div>
+
+  <script>
+    // Array of lyrics with delays for each character
+    const lines = [
+      { text: "넌 내일 떠나 또 please don't leave me in the circle", charDelay: 80 }, 
+      { text: "Don't do that baby", charDelay: 80 },
+      { text: "난 가만히 you around me", charDelay: 80 },
+      { text: "Don't leave me in the circle", charDelay: 70 },
+      { text: "Baby, come, baby, come, baby, come, do it something", charDelay: 70 },
+      { text: "둘이 같이 둘이 함께 do anything", charDelay: 75 },
+      { text: "단둘이서 runnin' in circle", charDelay: 90 },
+    ];
+
+    // Array of delays between the lines
+    const delays = [3, 4, 5, 3, 4, 4, 5]; // in milliseconds
+
+    function printLyrics() {
+      const lyricsElement = document.getElementById("lyrics");
+      let lineIndex = 0;
+
+      function printLine(lineIndex) {
+        if (lineIndex >= lines.length) return;
+
+        const line = lines[lineIndex];
+        let charIndex = 0;
+        
+        function printChar() {
+          if (charIndex < line.text.length) {
+            lyricsElement.innerHTML += line.text[charIndex];
+            charIndex++;
+            setTimeout(printChar, line.charDelay);
+          } else {
+            lyricsElement.innerHTML += "<br>";
+            // After printing a line, wait for the delay before starting the next line
+            setTimeout(() => printLine(lineIndex + 1), delays[lineIndex]);
+          }
+        }
+
+        printChar(); // Start printing the current line
+      }
+
+      printLine(lineIndex); // Start printing the first line
+    }
+
+    // Call the function to start the animation
+    printLyrics();
+  </script>
+  </main>
+</body>
+</html>
